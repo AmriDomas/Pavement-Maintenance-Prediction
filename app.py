@@ -2,8 +2,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import xgboost as xgb
-import os
-import kagglehub
 import warnings
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.impute import SimpleImputer
@@ -14,11 +12,8 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # Using st.cache_resource to load data only once
 @st.cache_resource
 def load_data():
-    # Download latest version
-    path = kagglehub.dataset_download("gifreysulay/pavement-dataset")
-    file_path = os.path.join(path, 'ESC 12 Pavement Dataset.csv')
-    pavement = pd.read_csv(file_path)
-    return pavement
+    url = "https://huggingface.co/datasets/11amri/Pavement/resolve/main/ESC%2012%20Pavement%20Dataset.csv"
+    return pd.read_csv(url)
 
 # Load the model (This part should ideally be done once when the app starts)
 @st.cache_resource
